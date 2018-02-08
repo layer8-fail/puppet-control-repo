@@ -31,10 +31,8 @@ node default {
   $classification = lookup({'name' => 'classification',
             'merge' => {
               'strategy' => 'deep',
-              'knockout_prefix' => '--',
-              'sort_merge_arrays' => true
+              'knockout_prefix' => '--'
             }
   })
-  
-   $classification['classes'].include
+  $classification.include
 }
