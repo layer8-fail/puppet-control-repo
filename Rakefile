@@ -5,4 +5,5 @@ PuppetfileUpdater::RakeTask.new :sync_refs do |config|
   # This is required to avoid hitting the GitHub connection rate
   config.gh_login    = 'github_robot'
   config.gh_password = 'github_password'
+  config.major       = true
 end
