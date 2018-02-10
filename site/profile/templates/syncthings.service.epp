@@ -1,0 +1,16 @@
+[Unit]
+Description=Syncthing
+After=docker.service
+
+[Service]
+Restart=always
+ExecStartPre=-/usr/bin/docker rm syncthing_run
+ExecStart=/usr/bin/docker run \
+--net=host \
+-v <%= $profile::syncthing::data_dir_path %>:/var/syncthing \
+-v <%= $profile::syncthing::config_dir_path %>:/var/syncthing/config \
+--name syncthing_run <%= $profile::syncthing::docker_image %>:<%= $profile::syncthing::docker_image_tag %>
+ExecStop=/usr/bin/docker stop syncthing_run
+
+[Install]
+WantedBy=multi-user.target

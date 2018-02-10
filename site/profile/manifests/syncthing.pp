@@ -2,16 +2,12 @@
 class profile::syncthing(
   $manage_firewalld = true,
   $manage_service   = true,
-  $service_enable   = true,
+  $systemd_unit_path = '/etc/systemd/system/syncthing.service',
   $docker_image     = 'syncthing/syncthing',
   $docker_image_tag = 'v0.14.44',
   $config_dir_path  = '/data/syncthing/config',
   $data_dir_path    = '/data/syncthing/sync',
   $syncthing_ports  = [
-    {
-      'port'     => '8384',
-      'protocol' => 'tcp',
-    },
     {
       'port'     => '22000',
       'protocol' => 'tcp',
@@ -29,6 +25,21 @@ class profile::syncthing(
         port     => "${item['port']}",
         protocol => "${item['protocol']}",
       }
+    }
+  }
+  if $manage_service {
+    include ::systemd::systemctl::daemon_reload
+
+    file { $systemd_unit_path:
+      ensure  => file,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      content => epp('profile/syncthing.service.epp'),
+    } ~> Class['systemd::systemctl::daemon_reload']
+    service {'syncthing':
+      ensure    => 'running',
+      subscribe => File[$systemd_unit_path],
     }
   }
 }
