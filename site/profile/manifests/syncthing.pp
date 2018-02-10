@@ -23,13 +23,13 @@ class profile::syncthing(
   }
   if $manage_firewalld {
     $syncthing_ports.each |Hash $item| {
-      firewalld_rich_rule { "Allow syncthing access from remote, Port $item['port']/$item['protocol']":
+      firewalld_rich_rule { "Allow syncthing access from remote, Port ${item['port']}/${item['protocol']}":
         ensure => present,
         zone   => 'restricted',
         action => 'accept',
         port   => {
-          'port'     => $item['port'],
-          'protocol' => $item['protocol'],
+          'port'     => "${item['port']}",
+          'protocol' => "${item['protocol']}",
         },
       }
     }
