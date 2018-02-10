@@ -1,6 +1,3 @@
-classification:
-  - ssh
-  - ntp
 ssh::sshd_password_authentication: 'no'
 ssh::permit_root_login: 'no'
 ssh::sshd_config_challenge_resp_auth: 'no'
