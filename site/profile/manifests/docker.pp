@@ -1,3 +1,4 @@
 class profile::docker() {
-  class { '::docker': }
+  class { '::docker': } ->
+  class { '::traefik': }
 }
