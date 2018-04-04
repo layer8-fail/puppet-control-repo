@@ -2,3 +2,4 @@ classification:
   - role::everything
 traefik::version: 1.5.4
 traefik::config_path: '/etc/traefik'
+ssh::sshd_listen_address: '10.20.10.1'
