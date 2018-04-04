@@ -1,4 +1,4 @@
 classification:
   - role::everything
-traefik::version: 1.5.2
+traefik::version: 1.5.4
 traefik::config_path: '/etc/traefik'
