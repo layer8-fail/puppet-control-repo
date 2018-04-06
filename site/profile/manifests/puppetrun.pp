@@ -14,7 +14,7 @@ class profile::puppetrun(
         'puppet'      => $puppet_binary,
         'codedir'     => $codedir,
         'environment' => $environment,
-        'manifests'   => $manifest,
+        'manifest'    => $manifest,
         'flags'       => $flags,
       }
     ),
