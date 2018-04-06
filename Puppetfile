@@ -16,4 +16,4 @@ mod 'crayfishx/firewalld',    '3.4.0'
 mod 'camptocamp/systemd',     '1.1.1'
 mod 'jensendw-traefik',       '0.0.5'
 mod 'puppet-r10k',            '6.4.0'
-
+mod 'camptocamp-openssl',     '1.10.0'
