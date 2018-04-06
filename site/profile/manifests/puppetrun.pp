@@ -1,6 +1,6 @@
 class profile::puppetrun(
   $path          = '/usr/local/bin/puppetrun',
-  $template      = "${module_name}/puppetrun.sh.pp",
+  $template      = "${module_name}/puppetrun.sh.epp",
   $environment   = 'production',
   $codedir       = '/etc/puppetlabs/code',
   $puppet_binary = '/opt/puppetlabs/bin/puppet',
