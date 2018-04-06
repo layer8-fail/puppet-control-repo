@@ -13,6 +13,9 @@ class profile::docker(
 ) {
   class { '::docker': } ->
   class { '::traefik': }
+  class { 'docker::compose':
+    ensure => present,
+  }
 
   if $manage_firewalld {
     $docker_ports.each |Hash $item| {
