@@ -16,6 +16,7 @@ class profile::syncthing(
 ) {
   docker::image { $docker_image:
     image_tag => $docker_image_tag,
+    notify    => Service['syncthing']
   }
   if $manage_firewalld {
     $syncthing_ports.each |Hash $item| {
