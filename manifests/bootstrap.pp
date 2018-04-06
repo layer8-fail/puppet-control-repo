@@ -1,2 +1,2 @@
 class{ 'profile::r10k': } ->
-class{ 'profile::pupperun': }
+class{ 'profile::puppetrun': }
