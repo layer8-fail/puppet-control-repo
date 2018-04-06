@@ -6,4 +6,4 @@
   String $flags       = '-v'
 | -%>
 #!/bin/bash
-<%= $puppet %> apply <%= $flags %> <%= $codedir %>/<%= $environment %>/manifests/<%= $manifest%>
+<%= $puppet %> apply <%= $flags %> <%= $codedir %>/environments/<%= $environment %>/manifests/<%= $manifest%>
