@@ -7,9 +7,10 @@ class profile::puppetrun(
   String $manifest                    = 'site.pp',
   String $flags                       = '-v',
 ) {
-  file{$path:
+  file{ $path:
     ensure  => file,
-    content => epp($template, {
+    content => epp($template,
+      {
         'puppet'      => $puppet_binary,
         'codedir'     => $codedir,
         'environment' => $environment,
