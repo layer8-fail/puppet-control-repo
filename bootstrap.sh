@@ -17,8 +17,12 @@ mkdir -pv "$MODULE_DIR"
 mkdir -pv "$FACTS"
 echo "puppet_control_repo=${REMOTE}" > "${FACTS}/bootstrap.txt"
 
-$R10K puppetfile install --moduledir "$MODULE_DIR" --puppetfile ./Puppefile -v info && \
-  $PUPPET apply --hiera_config=${REPODIR}/hiera.yaml --modulepath="${REPODIR}/site:${MODULE_DIR}" -v ${REPODIR}/bootstrap.pp
+$R10K puppetfile install --moduledir "$MODULE_DIR" --puppetfile ./Puppetfile -v info && \
+  $PUPPET apply\
+    --hiera_config=${REPODIR}/hiera.yaml\
+    --modulepath="${REPODIR}/site:${MODULE_DIR}"\
+    -v\
+    ${REPODIR}/manifests/bootstrap.pp
 rm -rf "$MODULE_DIR"
 $R10K deploy environment -p -v info && $PUPPET_RUN
 
