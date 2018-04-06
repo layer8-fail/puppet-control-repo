@@ -2,10 +2,10 @@ class profile::r10k(
   $repo     = $::facts['puppet_control_repo'],
   $cachedir = '/var/cache/r10k',
 ) {
-  file{$cachedir:
+  file{ $cachedir:
     ensure => directory,
   }
-  class{'r10k'
+  class{ 'r10k':
     remote                  => $repo,
     provider                => 'puppet_gem',
     cachedir                => $cachedir,
