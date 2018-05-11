@@ -7,7 +7,7 @@ class profile::compose_apps (
   Array $apps = [],
 ) {
   vcsrepo { $dir:
-  ensure   => present,
+  ensure   => latest,
   provider => git,
   source   => $vcs_repo,
   revision => $vcs_branch,
