@@ -4,12 +4,7 @@ class profile::compose_apps (
   String $dir              = '/opt/docker-stuff',
   String $compose_dir      = 'compose',
   String $vcs_branch       = 'master',
-  Array $apps = [
-    'archlinux',
-    'aur_repo',
-    'gitea',
-    'netdata',
-  ]
+  Array $apps = [],
 ) {
   vcsrepo { $dir:
   ensure   => present,
