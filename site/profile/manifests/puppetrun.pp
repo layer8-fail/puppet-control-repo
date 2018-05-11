@@ -1,7 +1,6 @@
 class profile::puppetrun(
   Stdlib::Absolutepath $path          = '/usr/local/bin/puppetrun',
   String $template                    = "${module_name}/puppetrun.sh.epp",
-  String $environment                 = 'production',
   Stdlib::Absolutepath $codedir       = '/etc/puppetlabs/code',
   Stdlib::Absolutepath $puppet_binary = '/opt/puppetlabs/bin/puppet',
   String $manifest                    = 'site.pp',
@@ -15,7 +14,6 @@ class profile::puppetrun(
       {
         'puppet'      => $puppet_binary,
         'codedir'     => $codedir,
-        'environment' => $environment,
         'manifest'    => $manifest,
         'flags'       => $flags,
       }
