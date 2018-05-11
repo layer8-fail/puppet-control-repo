@@ -1,9 +1,9 @@
 class profile::compose_apps (
   Boolean $manage_vcs_repo = true,
-  String $vcs_repo = 'https://github.com/layer8-fail/docker-stuff.git',
-  String $dir = '/opt/docker-stuff'
-  String $compose_dir = 'compose',
-  String $vcs_branch = 'master',
+  String $vcs_repo         = 'https://github.com/layer8-fail/docker-stuff.git',
+  String $dir              = '/opt/docker-stuff',
+  String $compose_dir      = 'compose',
+  String $vcs_branch       = 'master',
   Array $apps = [
     'archlinux',
     'aur_repo',
