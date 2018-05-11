@@ -6,6 +6,8 @@ class profile::puppetrun(
   Stdlib::Absolutepath $puppet_binary = '/opt/puppetlabs/bin/puppet',
   String $manifest                    = 'site.pp',
   String $flags                       = '-v',
+  Boolean $cronjob                    = true,
+  String $cron_minutes                = '*/30',
 ) {
   file{ $path:
     ensure  => file,
@@ -21,5 +23,10 @@ class profile::puppetrun(
     mode    => '750',
     owner   => 'root',
     group   => 'root',
+  }
+  if $cronjob {
+    command => $path,
+    user    => 'root',
+    minute  => $cron_minutes,
   }
 }
