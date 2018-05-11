@@ -10,12 +10,5 @@ class profile::r10k(
     provider                => 'puppet_gem',
     cachedir                => $cachedir,
     include_postrun_command => true, # run r10k after a puppet run
-  } ->
-  class { 'r10k::webhook::config':
-    use_mcollective  => false,
-  }
-  class { 'r10k::webhook':
-    user    => 'root',
-    group   => 'root',
   }
 }
