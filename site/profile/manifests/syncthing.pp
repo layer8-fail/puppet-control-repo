@@ -4,7 +4,7 @@ class profile::syncthing(
   $manage_service   = true,
   $systemd_unit_path = '/etc/systemd/system/syncthing.service',
   $docker_image     = 'syncthing/syncthing',
-  $docker_image_tag = 'v0.14.46',
+  $docker_image_tag = 'v0.14.47',
   $config_dir_path  = '/data/syncthing/config',
   $data_dir_path    = '/data/syncthing/sync',
   $syncthing_ports  = [
