@@ -23,8 +23,10 @@ class profile::puppetrun(
     group   => 'root',
   }
   if $cronjob {
-    command => $path,
-    user    => 'root',
-    minute  => $cron_minutes,
+    cron{'puppetrun':
+      command => $path,
+      user    => 'root',
+      minute  => $cron_minutes,
+    }
   }
 }
