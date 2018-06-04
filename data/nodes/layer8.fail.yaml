@@ -9,3 +9,4 @@ profile::compose_apps::apps:
   - archmirror
   - aur_repo
   - netdata
+  - synapse
