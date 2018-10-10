@@ -11,9 +11,9 @@ class profile::users {
                     'knockout_prefix' => '--',
                   },
                })
-  $user_list.each |String $user, Hash $config| {
+  $user_list.each |String $user, $config| {
     accounts::user { $user:
-      * => $config,
+      * => $user_list[$user],
     }
   }
 }
