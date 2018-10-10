@@ -3,6 +3,8 @@ ssh::permit_root_login: 'no'
 ssh::sshd_config_challenge_resp_auth: 'no'
 ssh::sshd_config_allowusers:
   - sysadm
+classification:
+  - role::base
 sudo::configs:
     'sysadm':
         'content'   : "sysadm ALL=(ALL) NOPASSWD: ALL"
