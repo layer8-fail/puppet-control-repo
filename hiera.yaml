@@ -17,3 +17,7 @@ hierarchy:
     paths:
       - "nodes/%{trusted.certname}.yaml"
       - "global.yaml"
+  - name: "Users"
+    data_hash: yaml_data
+    paths:
+      - "users/global.yaml"

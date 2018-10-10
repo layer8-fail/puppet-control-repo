@@ -1,0 +1,19 @@
+---
+# accounts::user { 'jeff':
+#  comment => 'Jeff McCune',
+#  groups  => [
+#    'admin',
+#    'sudonopw',
+#  ],
+#  uid     => '1112',
+#  gid     => '1112',
+#  sshkeys => [
+#    'ssh-rsa AAAAB3Nza...== jeff@puppetlabs.com',
+#    'ssh-dss AAAAB3Nza...== jeff@metamachine.net',
+#  ],
+#  }
+local_users:
+  sysadm:
+    comment: 'System admin account'
+  sshkeys:
+    - 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJQpLK3odfcYvbux5mExeQMOcXfgfTYpWBDaGIZ6R18c mattias@sysadm'
