@@ -15,5 +15,5 @@
 local_users:
   sysadm:
     comment: 'System admin account'
-  sshkeys:
-    - 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJQpLK3odfcYvbux5mExeQMOcXfgfTYpWBDaGIZ6R18c mattias@sysadm'
+    sshkeys:
+      - 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJQpLK3odfcYvbux5mExeQMOcXfgfTYpWBDaGIZ6R18c mattias@sysadm'
