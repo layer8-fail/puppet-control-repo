@@ -3,3 +3,7 @@ ssh::permit_root_login: 'no'
 ssh::sshd_config_challenge_resp_auth: 'no'
 ssh::sshd_config_allowusers:
   - sysadm
+sudo::configs:
+    'sysadm':
+        'content'   : "sysadm ALL=(ALL) NOPASSWD: ALL"
+        'priority'  : 10
