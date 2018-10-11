@@ -1,5 +1,10 @@
 class profile::base {
-  contain ::ntp
+  if $::facts['os']['name'] == 'SuSE' and $::facts['os']['major'] >= 15 {
+    contain ::chrony
+  }
+  else {
+    contain ::ntp
+  }
   contain ::ssh
   include ::firewalld
   class { 'sudo':
