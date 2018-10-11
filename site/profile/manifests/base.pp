@@ -1,5 +1,5 @@
 class profile::base {
-  if $::facts['os']['name'] == 'SuSE' and $::facts['os']['release']['major'] >= 15 {
+  if $::facts['os']['name'] == 'SuSE' and versioncmp($::facts['os']['release']['major'],'15') >= 0 {
     contain ::chrony
   }
   else {
