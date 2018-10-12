@@ -7,7 +7,7 @@
 class profile::mariadb(
   $mariadb_version = '10.3',
   $mariadb_package_version = "10.3.10+maria~${::lsbdistcodename}",
-  $mirror = "http://ftp.osuosl.org/pub/mariadb/repo/${mariadb_version}/"
+  $mirror = "http://ftp.osuosl.org/pub/mariadb/repo/${mariadb_version}/ubuntu"
 ) {
   if $::facts['os']['name'] != 'Ubuntu' {
     fail("${module_name} is currently only supported on Ubuntu")
