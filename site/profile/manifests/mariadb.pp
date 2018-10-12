@@ -7,6 +7,7 @@
 class profile::mariadb(
   $mariadb_version = '10.3',
   $mariadb_package_version = "10.3_10.3.10+maria~${::lsbdistcodename}",
+  $repo_keyid = '199369E5404BD5FC7D2FE43BCBCB082A1BB943DB'
   $mirror = "http://ftp.osuosl.org/pub/mariadb/repo/${mariadb_version}/ubuntu"
 ) {
   if $::facts['os']['name'] != 'Ubuntu' {
@@ -19,7 +20,7 @@ class profile::mariadb(
     release  => $::lsbdistcodename,
     repos    => 'main',
     key      => {
-      id     => '0xcbcb082a1bb943db',
+      id     => $repo_keyid,
       server => 'hkp://keyserver.ubuntu.com:80',
     },
     include  => {
