@@ -6,7 +6,7 @@
 #   include profile::mariadb
 class profile::mariadb(
   $mariadb_version = '10.3',
-  $mariadb_package_version = "10.3.10+maria~${::lsbdistcodename}",
+  $mariadb_package_version = "10.3_10.3.10+maria~${::lsbdistcodename}",
   $mirror = "http://ftp.osuosl.org/pub/mariadb/repo/${mariadb_version}/ubuntu"
 ) {
   if $::facts['os']['name'] != 'Ubuntu' {
