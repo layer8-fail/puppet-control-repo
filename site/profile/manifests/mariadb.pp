@@ -19,7 +19,7 @@ class profile::mariadb(
     release  => $::lsbdistcodename,
     repos    => 'main',
     key      => {
-      id     => '199369E5404BD5FC7D2FE43BCBCB082A1BB943DB',
+      id     => '0xcbcb082a1bb943db',
       server => 'hkp://keyserver.ubuntu.com:80',
     },
     include  => {
