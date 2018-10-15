@@ -5,12 +5,14 @@
 # @example
 #   include profile::mariadb
 class profile::mariadb(
-  $mariadb_version         = '10.3',
-  $mariadb_package_name    = "mariadb-server-${mariadb_version}",
-  $mariadb_package_ensure  = 'present',
-  $repo_keyid              = '177F4010FE56CA3336300305F1656F24C74CD1D8',
-  $repo_architecture       = 'amd64',
-  $mirror                  = "http://ftp.osuosl.org/pub/mariadb/repo/${mariadb_version}/ubuntu"
+  $mariadb_version             = '10.3',
+  $mariadb_package_name        = "mariadb-server-${mariadb_version}",
+  $mariadb_package_ensure      = 'present',
+  $repo_keyid                  = '177F4010FE56CA3336300305F1656F24C74CD1D8',
+  $repo_architecture           = 'amd64',
+  $mirror                      = "http://ftp.osuosl.org/pub/mariadb/repo/${mariadb_version}/ubuntu",
+  $manage_client               = true,
+  $mariadb_client_package_name = 'mariadb-client'
 ) {
   if $::facts['os']['name'] != 'Ubuntu' {
     fail("${module_name} is currently only supported on Ubuntu")
@@ -43,6 +45,13 @@ class profile::mariadb(
       mysqld_safe => {
         'log-error' => '/var/log/mysql/mariadb.log',
       },
+    }
+  }
+
+  if $manage_client {
+    class {'::mysql::client':
+      package_name    => $mariadb_client_package_name,
+      bindings_enable => true,
     }
   }
   # Take care of order
