@@ -7,7 +7,7 @@
 class profile::mariadb(
   $mariadb_version         = '10.3',
   $mariadb_package_name    = "mariadb-server-${mariadb_version}",
-  $mariadb_package_version = "10.3.10+maria~${::lsbdistcodename}",
+  $mariadb_package_ensure  = 'present',
   $repo_keyid              = '177F4010FE56CA3336300305F1656F24C74CD1D8',
   $repo_architecture       = 'amd64',
   $mirror                  = "http://ftp.osuosl.org/pub/mariadb/repo/${mariadb_version}/ubuntu"
@@ -33,7 +33,7 @@ class profile::mariadb(
   }
   class {'::mysql::server':
     package_name     => $mariadb_package_name,
-    package_ensure   => $mariadb_package_version,
+    package_ensure   => $mariadb_package_ensure,
     service_name     => 'mysql',
     override_options => {
       mysqld => {
