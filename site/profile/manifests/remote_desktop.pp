@@ -5,7 +5,8 @@
 # @example
 #   include profile::remote_desktop
 class profile::remote_desktop(
-  $desktop_package_group = 'Xfce'
+  $desktop_package_group = 'Xfce',
+  $package_list,
 ) {
   if $::facts['os']['family'] != 'RedHat' {
     fail("ATM only RedHat family is supported, not ${::facts['os']['family']}")
@@ -15,6 +16,9 @@ class profile::remote_desktop(
     timeout => 600,
   }
   package { 'x2goserver-xsession':
+    ensure => present,
+  }
+  package { $package_list:
     ensure => present,
   }
 }
