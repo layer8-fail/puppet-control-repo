@@ -1,0 +1,14 @@
+profile::remote_desktop::package_list:
+  - firefox
+  - htop
+  - vim-enhanced
+  - git
+  - neovim
+  - python3-neovim
+  - vim-X11
+  - subversion
+  - libreoffice-impress
+  - libreoffice-calc
+  - libreoffice-writer
+  - libreoffice-langpack-es
+  - libreoffice-langpack-en
