@@ -18,6 +18,10 @@ class profile::remote_desktop(
   package { 'x2goserver-xsession':
     ensure => present,
   }
+  # Make sure to fix permissions, otherwise the sudo parser check will fail
+  file { '/etc/sudoers.d/x2goserver':
+    mode   => '440',
+  }
   package { $package_list:
     ensure => present,
   }
