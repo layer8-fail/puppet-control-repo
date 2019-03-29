@@ -1,5 +1,5 @@
 class profile::base {
-  if $::facts['os']['name'] == 'SuSE' and versioncmp($::facts['os']['release']['major'],'15') >= 0 {
+  if $::facts['os']['family'] == 'Suse' and versioncmp($::facts['os']['release']['major'],'15') >= 0 {
     contain ::chrony
   }
   else {
@@ -11,5 +11,4 @@ class profile::base {
     purge               => false,
     config_file_replace => false,
   }
-  include sudo::configs
 }
