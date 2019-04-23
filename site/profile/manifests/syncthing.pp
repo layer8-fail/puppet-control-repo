@@ -1,22 +1,25 @@
 # This thingy throws syncthing on a host, through the magic of docker
 class profile::syncthing(
-  $manage_firewalld = true,
-  $manage_service   = true,
+  $manage_firewalld  = true,
+  $manage_service    = true,
   $systemd_unit_path = '/etc/systemd/system/syncthing.service',
-  $docker_image     = 'syncthing/syncthing',
-  $docker_image_tag = 'v0.14.51',
-  $config_dir_path  = '/data/syncthing/config',
-  $data_dir_path    = '/data/syncthing/sync',
-  $syncthing_ports  = [
+  $use_docker        = true,
+  $docker_image      = 'syncthing/syncthing',
+  $docker_image_tag  = 'v0.14.51',
+  $config_dir_path   = '/data/syncthing/config',
+  $data_dir_path     = '/data/syncthing/sync',
+  $syncthing_ports = [
     {
       'port'     => '22000',
       'protocol' => 'tcp',
     },
   ]
 ) {
-  docker::image { $docker_image:
-    image_tag => $docker_image_tag,
-    notify    => Service['syncthing']
+  if $use_docker {
+    docker::image { $docker_image:
+      image_tag => $docker_image_tag,
+      notify    => Service['syncthing']
+    }
   }
   if $manage_firewalld {
     $syncthing_ports.each |Hash $item| {
