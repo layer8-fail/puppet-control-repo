@@ -10,7 +10,7 @@ class profile::glpi_standalone (
   String $upstream_url     = 'glpi.lab.fail',
   Integer $port            = 80,
   String $php_fpm_url      = 'localhost:9000',
-  String $www_root = '/var/www/glpi/current',
+  String $www_root         = '/var/www/glpi/current',
 ){
   if ! $facts['os']['family'] == 'RedHat' {
     fail('Only works on RHEL/CentOS for now')
