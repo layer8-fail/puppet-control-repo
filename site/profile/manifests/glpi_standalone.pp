@@ -6,10 +6,10 @@
 #   include profile::glpi_standalone
 class profile::glpi_standalone (
   Boolean $manage_firewall = true,
-  Boolean $manage_repos = true,
-  String $upstream_url = 'glpi.lab.fail',
-  Integer $port = 80,
-  String $php_fpm_url = 'localhost:8000',
+  Boolean $manage_repos    = true,
+  String $upstream_url     = 'glpi.lab.fail',
+  Integer $port            = 80,
+  String $php_fpm_url      = 'localhost:8000',
 ){
   if ! $facts['os']['family'] == 'RedHat' {
     fail('Only works on RHEL/CentOS for now')
@@ -19,7 +19,7 @@ class profile::glpi_standalone (
   class{'::glpi':
     manage_repos => $manage_repos,
   }
-  if $facts['os']['release']['major'] == 7 && $manage_repos {
+  if $facts['os']['release']['major'] == 7 and $manage_repos {
     ensure_packages('rh-mariadb102-runtime')
   }
   contain ::mysql::server
