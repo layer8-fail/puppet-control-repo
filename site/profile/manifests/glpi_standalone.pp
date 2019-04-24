@@ -22,6 +22,7 @@ class profile::glpi_standalone (
   }
   if $facts['os']['release']['major'] == 7 and $manage_repos {
     ensure_packages('rh-mariadb102-runtime')
+    ensure_packages('rh-mariadb102-syspaths')
   }
   contain ::mysql::server
 
