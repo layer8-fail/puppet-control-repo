@@ -32,6 +32,7 @@ mod 'puppetlabs/vcsrepo'      , '2.4.0'
 mod 'saz/sudo'                , '6.0.0'
 mod 'puppet/yum'              , '3.1.1'
 mod 'bodgit/scl'              , '1.0.1'
+mod 'stahnma/epel'            , '1.3.1'
 
 mod 'glpi',
   :git => 'https://github.com/mattiasgiese/puppet-glpi.git',
