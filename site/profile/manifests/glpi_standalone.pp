@@ -4,8 +4,18 @@
 #
 # @example
 #   include profile::glpi_standalone
-class profile::glpi_standalone {
+class profile::glpi_standalone (
+  Boolean $manage_firewall = true,
+){
   contain nginx
   contain glpi
   contain mysql::server
+
+  if $manage_firewall {
+      firewalld_service {['http','https']:
+        ensure   => present,
+        zone     => 'public',
+      }
+    }
+  }
 }
