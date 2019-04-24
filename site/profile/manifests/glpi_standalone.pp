@@ -12,10 +12,9 @@ class profile::glpi_standalone (
   contain mysql::server
 
   if $manage_firewall {
-      firewalld_service {['http','https']:
-        ensure   => present,
-        zone     => 'public',
-      }
+    firewalld_service {['http','https']:
+      ensure   => present,
+      zone     => 'public',
     }
   }
 }
