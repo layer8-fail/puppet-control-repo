@@ -43,14 +43,15 @@ class profile::glpi_standalone (
       fastcgi_read_timeout    => '3m',
       fastcgi_send_timeout    => '3m'
     }
+  }
 
-    if $manage_firewall {
-      ['http','https'].each |$svc| {
-        firewalld_service {"Allow access to $svc":
-          ensure  => present,
-          service => $svc,
-          zone    => 'public',
-        }
+  if $manage_firewall {
+    ['http','https'].each |$svc| {
+      firewalld_service {"Allow access to $svc":
+        ensure  => present,
+        service => $svc,
+        zone    => 'public',
       }
     }
   }
+}
