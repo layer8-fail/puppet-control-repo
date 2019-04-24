@@ -12,9 +12,12 @@ class profile::glpi_standalone (
   contain mysql::server
 
   if $manage_firewall {
-    firewalld_service {['http','https']:
-      ensure   => present,
-      zone     => 'public',
+    ['http','https'].each |$svc| {
+      firewalld_service {"Allow access to $svc":
+        ensure  => present,
+        service => $svc,
+        zone    => 'public',
+      }
     }
   }
 }
