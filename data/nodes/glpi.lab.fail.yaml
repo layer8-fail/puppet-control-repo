@@ -4,18 +4,18 @@ classification:
 
 glpi::owner: nginx
 glpi::group: nginx
-mysql::client::package_name: "rh-mariadb101-mariadb" # required for proper MySQL installation
-mysql::server::package_name: "rh-mariadb101-mariadb-server" # required for proper MySQL installation
+mysql::client::package_name: "rh-mariadb102-mariadb" # required for proper MySQL installation
+mysql::server::package_name: "rh-mariadb102-mariadb-server-syspaths" # required for proper MySQL installation
 mysql::server::package_ensure: 'installed' # do not specify version here, unfortunately yum fails with error that package is already installed
 mysql::server::root_password: "change_me_i_am_insecure"
 mysql::server::manage_config_file: true
-mysql::server::service_name: 'rh-mariadb101-mariadb' # required for puppet module
+mysql::server::service_name: 'mariadb' # required for puppet module
 mysql::server::remove_default_accounts: true
-mysql::server::config_file: '/etc/opt/rh/rh-mariadb101/my.cnf'
-mysql::server::includedir: '/etc/opt/rh/rh-mariadb101/my.cnf.d'
+mysql::server::config_file: '/etc/my.cnf'
+mysql::server::includedir: '/etc/my.cnf.d'
 mysql::server::override_options:
   mysqld:
     log-error: '/var/log/mysqld.log'
-    pid-file: '/var/run/rh-mariadb101-mariadb/mariadb.pid'
+    pid-file: '/var/run/mariadb/mariadb.pid'
   mysqld_safe:
     log-error: '/var/log/mysqld.log'
