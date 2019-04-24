@@ -10,6 +10,7 @@ class profile::glpi_standalone (
   String $upstream_url     = 'glpi.lab.fail',
   Integer $port            = 80,
   String $php_fpm_url      = 'http://localhost:9000',
+  String $www_root = '/var/www/glpi/current',
 ){
   if ! $facts['os']['family'] == 'RedHat' {
     fail('Only works on RHEL/CentOS for now')
@@ -27,6 +28,8 @@ class profile::glpi_standalone (
   nginx::resource::server { $upstream_url:
     listen_port => $port,
     proxy       => $php_fpm_url,
+    www_root    => $www_root,
+    index_files => [ 'index.php' ],
   }
 
   if $manage_firewall {
