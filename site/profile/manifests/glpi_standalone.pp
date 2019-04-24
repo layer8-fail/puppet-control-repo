@@ -7,5 +7,5 @@
 class profile::glpi_standalone {
   contain nginx
   contain glpi
-  contain mysql
+  contain mysql::server
 }
