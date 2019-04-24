@@ -17,5 +17,6 @@ mysql::server::override_options:
   mysqld:
     log-error: '/var/log/mysqld.log'
     pid-file: '/var/run/mariadb/mariadb.pid'
+    basedir: '/opt/rh/rh-mariadb102/root/usr/'
   mysqld_safe:
     log-error: '/var/log/mysqld.log'
