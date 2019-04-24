@@ -35,13 +35,13 @@ class profile::glpi_standalone (
     ensure        => present,
     server        => $upstream_url,
     www_root      => "${www_root}/config",
-    location_deny => 'all',
+    location_deny => ['all'],
   }
   nginx::resource::location{ 'glpi_files':
     ensure        => present,
     server        => $upstream_url,
     www_root      => "${www_root}/files",
-    location_deny => 'all',
+    location_deny => ['all'],
   }
   nginx::resource::location { 'glpi_root':
     ensure          => present,
