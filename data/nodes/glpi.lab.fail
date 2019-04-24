@@ -1,3 +1,10 @@
 ---
 classification:
   - role::glpi
+
+mysql::client::package_name: "rh-mariadb102-mariadb-common" # required for proper MySQL installation
+mysql::server::package_name: "rh-mariadb102-mariadb-server" # required for proper MySQL installation
+mysql::server::package_ensure: 'installed' # do not specify version here, unfortunately yum fails with error that package is already installed
+mysql::server::root_password: "change_me_i_am_insecure"
+mysql::server::manage_config_file: true
+mysql::server::service_name: 'mysqld' # required for puppet module
