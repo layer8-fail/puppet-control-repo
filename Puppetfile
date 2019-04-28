@@ -36,6 +36,8 @@ mod 'stahnma/epel'            , '1.3.1'
 mod 'puppet/php'              , '6.0.2'
 mod 'puppet/archive'          , '3.2.1'
 mod 'puppet/nginx'            , '0.16.0'
+mod 'icinga/icinga2'          , '2.0.2'
+mod 'icinga/icingaweb2'       , '2.2.0'
 
 mod 'glpi',
   :git => 'https://github.com/mattiasgiese/puppet-glpi.git',
