@@ -10,3 +10,4 @@ sudo::configs:
     'sysadm':
         'content'   : "sysadm ALL=(ALL) NOPASSWD: ALL"
         'priority'  : 10
+icinga2::manage_repo: true
