@@ -52,14 +52,20 @@ class profile::glpi_standalone (
       group   => $tls_file_group,
       content => $tls_private_key,
     }
-    $tls_options = {
+    $server_tls_options = {
       'ssl'      => true,
       'ssl_cert' => $crt,
       'ssl_key'  => $key,
     }
+    $location_tls_options = {
+      'ssl' => true,
+    }
   }
   else {
-    $tls_options = {
+    $server_tls_options = {
+      'ssl' => false,
+    }
+    $location_tls_options = {
       'ssl' => false,
     }
   }
@@ -67,7 +73,7 @@ class profile::glpi_standalone (
   nginx::resource::server { $upstream_url:
     listen_port => $port,
     www_root    => $www_root,
-    *           => $tls_options,
+    *           => $server_tls_options,
   }
 
   nginx::resource::location{ 'glpi_config':
@@ -75,12 +81,14 @@ class profile::glpi_standalone (
     server        => $upstream_url,
     www_root      => "${www_root}/config",
     location_deny => ['all'],
+    *             => $location_tls_options,
   }
   nginx::resource::location{ 'glpi_files':
     ensure        => present,
     server        => $upstream_url,
     www_root      => "${www_root}/files",
     location_deny => ['all'],
+    *             => $location_tls_options,
   }
   nginx::resource::location { 'glpi_root':
     ensure              => present,
@@ -95,7 +103,8 @@ class profile::glpi_standalone (
       fastcgi_connect_timeout => '3m',
       fastcgi_read_timeout    => '3m',
       fastcgi_send_timeout    => '3m'
-    }
+    },
+    *                   => $location_tls_options,
   }
 
   if $manage_firewall {
