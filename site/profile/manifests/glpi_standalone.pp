@@ -83,14 +83,14 @@ class profile::glpi_standalone (
     location_deny => ['all'],
   }
   nginx::resource::location { 'glpi_root':
-    ensure          => present,
-    server          => $upstream_url,
-    www_root        => $www_root,
-    location        => '~ \.php$',
-    index_files     => ['index.php'],
-    proxy           => undef,
-    fastcgi         => $php_fpm_url,
-    fastcgi_script  => undef,
+    ensure              => present,
+    server              => $upstream_url,
+    www_root            => $www_root,
+    location            => '~ \.php$',
+    index_files         => ['index.php'],
+    proxy               => undef,
+    fastcgi             => $php_fpm_url,
+    fastcgi_script      => undef,
     location_cfg_append => {
       fastcgi_connect_timeout => '3m',
       fastcgi_read_timeout    => '3m',
@@ -100,7 +100,7 @@ class profile::glpi_standalone (
 
   if $manage_firewall {
     ['http','https'].each |$svc| {
-      firewalld_service {"Allow access to $svc":
+      firewalld_service {"Allow access to ${svc}":
         ensure  => present,
         service => $svc,
         zone    => 'public',
