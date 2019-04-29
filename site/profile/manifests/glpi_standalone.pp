@@ -11,6 +11,12 @@ class profile::glpi_standalone (
   Integer $port            = 80,
   String $php_fpm_url      = 'localhost:9000',
   String $www_root         = '/var/www/glpi/current',
+  Boolean $tls             = false,
+  String $tls_public_key   = undef,
+  String $tls_private_key  = undef,
+  String $tls_path         = '/etc/nginx/certs',
+  String $tls_file_owner   = 'nginx',
+  String $tls_file_group   = 'nginx'
 ){
   if ! $facts['os']['family'] == 'RedHat' {
     fail('Only works on RHEL/CentOS for now')
@@ -26,9 +32,42 @@ class profile::glpi_standalone (
   }
   contain ::mysql::server
 
+  if $tls {
+    file { $tls_path:
+      ensure => directory,
+      owner  => $tls_file_owner,
+      group  => $tls_file_group,
+    }
+    $crt = "${tls_path}/${upstream_url}.crt"
+    $key = "${tls_path}/${upstream_url}.key"
+    file { $crt:
+      ensure  => file,
+      owner   => $tls_file_owner,
+      group   => $tls_file_group,
+      content => $tls_public_key,
+    }
+    file { $key:
+      ensure  => file,
+      owner   => $tls_file_owner,
+      group   => $tls_file_group,
+      content => $tls_private_key,
+    }
+    $tls_options = {
+      'ssl'      => true,
+      'ssl_cert' => $crt,
+      'ssl_key'  => $key,
+    }
+  }
+  else {
+    $tls_options = {
+      'ssl' => false,
+    }
+  }
+
   nginx::resource::server { $upstream_url:
     listen_port => $port,
     www_root    => $www_root,
+    *           => $tls_options,
   }
 
   nginx::resource::location{ 'glpi_config':
