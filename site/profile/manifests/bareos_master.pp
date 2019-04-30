@@ -84,15 +84,13 @@ class profile::bareos_master (
   }
 
   if $manage_client {
-    ::bareos::director::client { $facts['networking']['fqdn']:
-      description => "BareOS Master Client: ${facts['networking']['fqdn']}",
-      password    => $client_password,
-      address     => $facts['networking']['fqdn'],
-    }
+    # Caution! The client itself is configured within bareos::profile::director::client
+    # and used in bareos::profile::director
+    $clnt_name = 'bareos-director-fd' # default name from upstream module
     # Create an backup job by referencing to the jobDef template.
-    ::bareos::director::job { "backup_${facts['networking']['fqdn']}":
+    ::bareos::director::job { "backup_${clnt_name}":
       job_defs => 'LinuxAll',
-      client   => $facts['networking']['fqdn'],
+      client   => $clnt_name,
     }
   }
 
