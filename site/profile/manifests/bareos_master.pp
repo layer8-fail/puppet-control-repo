@@ -18,7 +18,7 @@ class profile::bareos_master (
   Optional[String] $storage_address = undef,
   String $storage_password          = 'please_change_me',
   String $storage_backing_root      = '/var/lib/bareos/storage',
-  String $database_user             = 'postgres',
+  String $postgres_user             = 'postgres',
   String $db_name                   = 'bareos_catalog',
   String $db_user                   = 'bareos',
   String $db_password               = 'OMG please change this',
@@ -30,6 +30,7 @@ class profile::bareos_master (
     postgresql::server::db { $db_name:
       user     => $db_user,
       password => postgresql_password($db_user, $db_password),
+      notify   => Exec['bareos director init catalog'],
     }
   }
   if $manage_storage {
@@ -54,12 +55,21 @@ class profile::bareos_master (
       'db_user'     => $db_user,
       'db_password' => $db_password,
     },
-  } ->
-  exec { 'bareos director init catalog':
-    command     => '/usr/lib/bareos/scripts/create_bareos_database && /usr/lib/bareos/scripts/make_bareos_tables && /usr/lib/bareos/scripts/grant_bareos_privileges',
-    notify      => Service[$::bareos::director::service_name],
-    user        => $database_user,
-    refreshonly => true,
+  }
+  if $manage_database {
+    exec { 'bareos director init catalog':
+      command     => '/usr/lib/bareos/scripts/make_bareos_tables && /usr/lib/bareos/scripts/grant_bareos_privileges',
+      require     => Class['::bareos::profile::director'],
+      notify      => Service[$::bareos::director::service_name],
+      environment => [
+        'dbdriver=postgresql',
+        "dbname=${db_name}",
+        "dbuser=${db_user}",
+        "dbpassword=${db_password}",
+      ],
+      user        => $postgres_user,
+      refreshonly => true,
+    }
   }
   if $manage_storage {
     class { '::bareos::profile::storage':
