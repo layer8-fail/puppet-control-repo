@@ -14,3 +14,8 @@ icinga2::manage_repo: true
 bareos_jobdefs:
   LinuxAll:
     file_set: 'LinuxAll'
+    storage: 'File'
+    messages: 'Standard'
+    pool: 'Full'
+    type: 'Backup'
+
