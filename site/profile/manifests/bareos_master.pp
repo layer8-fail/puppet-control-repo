@@ -76,8 +76,9 @@ class profile::bareos_master (
   if $manage_jobdefs {
     $my_jobdefs = lookup({'name' => 'bareos_jobdefs',
     'merge' => {
-      'strategy' => 'deep',
-      'knockout_prefix' => '--'
+      'strategy'        => 'deep',
+      'knockout_prefix' => '--',
+      'default_value'   => {}
     }
     })
     ensure_resources('::bareos::director::jobdefs', $my_jobdefs, $jobdefs_defaults)
@@ -85,8 +86,9 @@ class profile::bareos_master (
   if $manage_filesets {
     $my_filesets = lookup({'name' => 'bareos_filesets',
     'merge' => {
-      'strategy' => 'deep',
-      'knockout_prefix' => '--'
+      'strategy'        => 'deep',
+      'knockout_prefix' => '--',
+      'default_value'   => {}
     }
     })
     ensure_resources('::bareos::director::fileset', $my_filesets, $fileset_defaults)
