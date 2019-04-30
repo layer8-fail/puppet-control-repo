@@ -9,6 +9,10 @@ class profile::bareos_master (
   Boolean $manage_director          = true,
   Boolean $manage_storage           = true,
   Boolean $manage_client            = true,
+  Boolean $manage_jobdefs           = true,
+  Optional[Hash] $jobdefs_defaults  = {},
+  Boolean $manage_filesets          = true,
+  Optional[Hash] $fileset_defaults  = {},
   String $client_password           = 'please_change_me',
   String $director_password         = 'please_change_me',
   Optional[String] $storage_address = undef,
@@ -65,4 +69,22 @@ class profile::bareos_master (
     }
   }
 
+  if $manage_jobdefs {
+    $my_jobdefs = lookup({'name' => 'bareos_jobdefs',
+    'merge' => {
+      'strategy' => 'deep',
+      'knockout_prefix' => '--'
+    }
+    })
+    ensure_resources('::bareos::director::jobdefs', $my_jobdefs, $jobdefs_defaults)
+  }
+  if $manage_filesets {
+    $my_filesets = lookup({'name' => 'bareos_filesets',
+    'merge' => {
+      'strategy' => 'deep',
+      'knockout_prefix' => '--'
+    }
+    })
+    ensure_resources('::bareos::director::filesets', $my_filesets, $fileset_defaults)
+  }
 }

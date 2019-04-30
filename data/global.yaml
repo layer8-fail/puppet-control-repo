@@ -11,3 +11,10 @@ sudo::configs:
         'content'   : "sysadm ALL=(ALL) NOPASSWD: ALL"
         'priority'  : 10
 icinga2::manage_repo: true
+bareos_jobdefs:
+  LinuxAll:
+    fileset: 'LinuxDefault'
+
+bareos_filesets:
+  LinuxDefault:
+    include: '/'
