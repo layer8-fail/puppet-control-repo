@@ -78,8 +78,8 @@ class profile::bareos_master (
     'merge' => {
       'strategy'        => 'deep',
       'knockout_prefix' => '--',
-      'default_value'   => {}
-    }
+    },
+    'default_value'   => {},
     })
     ensure_resources('::bareos::director::jobdefs', $my_jobdefs, $jobdefs_defaults)
   }
@@ -88,8 +88,8 @@ class profile::bareos_master (
     'merge' => {
       'strategy'        => 'deep',
       'knockout_prefix' => '--',
-      'default_value'   => {}
-    }
+    },
+    'default_value'   => {},
     })
     ensure_resources('::bareos::director::fileset', $my_filesets, $fileset_defaults)
   }
