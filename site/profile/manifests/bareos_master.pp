@@ -24,14 +24,14 @@ class profile::bareos_master (
   String $db_password               = 'OMG please change this',
   String $db_address                = 'localhost',
   String $db_port                   = '5432',
-  String $db_locale                 = 'SQL_ASCII',
+  String $db_encoding               = 'SQL_ASCII',
 ){
   if $manage_database {
     include ::postgresql::server
     postgresql::server::db { $db_name:
       user     => $db_user,
       password => postgresql_password($db_user, $db_password),
-      locale   => $db_locale,
+      encoding => $db_encoding,
       notify   => Exec['bareos director init catalog'],
     }
   }
