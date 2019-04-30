@@ -59,7 +59,7 @@ class profile::bareos_master (
   if $manage_database {
     exec { 'bareos director init catalog':
       command     => '/usr/lib/bareos/scripts/make_bareos_tables && /usr/lib/bareos/scripts/grant_bareos_privileges',
-      require     => Class['::bareos::profile::director'],
+      subscribe   => Class['::bareos::profile::director'],
       notify      => Service[$::bareos::director::service_name],
       environment => [
         'dbdriver=postgresql',
