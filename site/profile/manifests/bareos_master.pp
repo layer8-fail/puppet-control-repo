@@ -41,7 +41,7 @@ class profile::bareos_master (
   class { '::bareos': }
   class { '::bareos::profile::director':
     password         => $director_password,
-    storage_address  => 'localhost',
+    storage_address  => $real_storage_address,
     storage_password => $storage_password,
     catalog_conf     => {
       'db_driver'   => 'postgresql',
