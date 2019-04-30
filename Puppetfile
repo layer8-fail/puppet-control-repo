@@ -8,7 +8,7 @@ mod 'gentoo/portage'          , '2.3.0'
 mod 'ghoneycutt/common'       , '1.9.0'
 mod 'ghoneycutt/ssh'          , '3.59.0'
 mod 'jensendw/traefik'        , '0.0.6'
-mod 'project0/bareos'         , '0.3.1'
+#mod 'project0/bareos'         , '0.3.1'
 mod 'puppet/gitlab'           , '3.0.2'
 mod 'puppet/r10k'             , '6.8.0'
 mod 'puppetlabs/accounts'     , '3.2.0'
@@ -41,4 +41,8 @@ mod 'icinga/icingaweb2'       , '2.2.0'
 
 mod 'glpi',
   :git => 'https://github.com/mattiasgiese/puppet-glpi.git',
+  :ref => 'master'
+
+mod 'bareos',
+  :git => 'https://github.com/mattiasgiese/puppet-bareos-1.git',
   :ref => 'master'
