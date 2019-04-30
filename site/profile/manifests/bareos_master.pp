@@ -25,6 +25,9 @@ class profile::bareos_master (
   String $db_address                = 'localhost',
   String $db_port                   = '5432',
   String $db_encoding               = 'SQL_ASCII',
+  Boolean $manage_firewall          = true,
+  Array $firewall_services          = ['bacula'],
+  String $firewall_zone             = 'public',
 ){
   if $manage_database {
     include ::postgresql::server
@@ -112,5 +115,15 @@ class profile::bareos_master (
     'default_value'   => {},
     })
     ensure_resources('::bareos::director::fileset', $my_filesets, $fileset_defaults)
+  }
+
+  if $manage_firewall {
+    [$firewall_services].each |$svc| {
+      firewalld_service {"Allow access to service ${svc}":
+        ensure  => present,
+        service => $svc,
+        zone    => $firewall_zone,
+      }
+    }
   }
 }
