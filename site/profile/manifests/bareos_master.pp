@@ -5,24 +5,31 @@
 # @example
 #   include profile::bareos_master
 class profile::bareos_master (
-  Boolean $manage_database     = true,
-  Boolean $manage_director     = true,
-  Boolean $manage_storage      = true,
-  Boolean $manage_client       = true,
-  String $client_password      = 'please_change_me',
-  String $director_password    = 'please_change_me',
-  String $storage_address      = undef,
-  String $storage_password     = 'please_change_me',
-  String $storage_backing_root = '/var/lib/bareos/storage',
-  String $db_name              = 'bareos_catalog',
-  String $db_user              = 'bareos',
-  String $db_password          = 'OMG please change this',
-  String $db_address           = 'localhost',
-  String $db_port              = '5432',
+  Boolean $manage_database          = true,
+  Boolean $manage_director          = true,
+  Boolean $manage_storage           = true,
+  Boolean $manage_client            = true,
+  String $client_password           = 'please_change_me',
+  String $director_password         = 'please_change_me',
+  Optional[String] $storage_address = undef,
+  String $storage_password          = 'please_change_me',
+  String $storage_backing_root      = '/var/lib/bareos/storage',
+  String $db_name                   = 'bareos_catalog',
+  String $db_user                   = 'bareos',
+  String $db_password               = 'OMG please change this',
+  String $db_address                = 'localhost',
+  String $db_port                   = '5432',
 ){
   if $manage_database {
     include ::postgresql::server
   }
+  if $manage_storage {
+    $real_storage_address = 'localhost'
+  }
+  else {
+    $real_storage_address = $storage_address
+  }
+
   class { '::bareos': }
   class { '::bareos::profile::director':
     password         => $director_password,
@@ -38,10 +45,11 @@ class profile::bareos_master (
     },
   }
 
-  # add storage server to the same machine
-  class { '::bareos::profile::storage':
-    password       => $storage_password,
-    archive_device => $storage_backing_root,
+  if $manage_storage {
+    class { '::bareos::profile::storage':
+      password       => $storage_password,
+      archive_device => $storage_backing_root,
+    }
   }
 
   if $manage_client {
