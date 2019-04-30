@@ -85,6 +85,6 @@ class profile::bareos_master (
       'knockout_prefix' => '--'
     }
     })
-    ensure_resources('::bareos::director::filesets', $my_filesets, $fileset_defaults)
+    ensure_resources('::bareos::director::fileset', $my_filesets, $fileset_defaults)
   }
 }
