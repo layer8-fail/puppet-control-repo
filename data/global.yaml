@@ -13,7 +13,7 @@ sudo::configs:
 icinga2::manage_repo: true
 bareos_jobdefs:
   LinuxAll:
-    fileset: 'LinuxDefault'
+    file_set: 'LinuxDefault'
 
 bareos_filesets:
   LinuxDefault:
