@@ -18,6 +18,7 @@ class profile::bareos_master (
   Optional[String] $storage_address = undef,
   String $storage_password          = 'please_change_me',
   String $storage_backing_root      = '/var/lib/bareos/storage',
+  String $database_user             = 'postgres',
   String $db_name                   = 'bareos_catalog',
   String $db_user                   = 'bareos',
   String $db_password               = 'OMG please change this',
@@ -38,7 +39,9 @@ class profile::bareos_master (
     $real_storage_address = $storage_address
   }
 
-  class { '::bareos': }
+  class { '::bareos':
+    manage_database => false,
+  }
   class { '::bareos::profile::director':
     password         => $director_password,
     storage_address  => $real_storage_address,
@@ -51,8 +54,13 @@ class profile::bareos_master (
       'db_user'     => $db_user,
       'db_password' => $db_password,
     },
+  } ->
+  exec { 'bareos director init catalog':
+    command     => '/usr/lib/bareos/scripts/create_bareos_database && /usr/lib/bareos/scripts/make_bareos_tables && /usr/lib/bareos/scripts/grant_bareos_privileges',
+    notify      => Service[$::bareos::director::service_name],
+    user        => $database_user,
+    refreshonly => true,
   }
-
   if $manage_storage {
     class { '::bareos::profile::storage':
       password       => $storage_password,
