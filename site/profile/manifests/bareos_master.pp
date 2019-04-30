@@ -67,7 +67,7 @@ class profile::bareos_master (
         "dbuser=${db_user}",
         "dbpassword=${db_password}",
       ],
-      user        => $postgres_user,
+      user        => $db_user,
       refreshonly => true,
     }
   }
