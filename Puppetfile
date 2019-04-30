@@ -39,6 +39,9 @@ mod 'puppet/nginx'                      , '0.16.0'
 mod 'icinga/icinga2'                    , '2.0.2'
 mod 'icinga/icingaweb2'                 , '2.2.0'
 mod 'sjors101/certificate_distribution' , '1.0.6'
+mod 'choria/choria'                     , '0.13.0'
+mod 'choria/mcollective_choria'         , '0.14.1'
+mod 'choria/mcollective'                , '0.9.1'
 
 mod 'glpi',
   :git => 'https://github.com/mattiasgiese/puppet-glpi.git',
