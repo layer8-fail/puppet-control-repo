@@ -14,6 +14,7 @@ class profile::bareos_master (
   Boolean $manage_filesets          = true,
   Optional[Hash] $fileset_defaults  = {},
   String $client_password           = 'please_change_me',
+  String $console_password          = 'please_change_me',
   String $director_password         = 'please_change_me',
   Optional[String] $storage_address = undef,
   String $storage_password          = 'please_change_me',
@@ -26,7 +27,7 @@ class profile::bareos_master (
   String $db_port                   = '5432',
   String $db_encoding               = 'SQL_ASCII',
   Boolean $manage_firewall          = true,
-  Array $firewall_services          = ['bacula'],
+  Array $firewall_services          = ['bacula',],
   String $firewall_zone             = 'public',
 ){
   if $manage_database {
@@ -116,7 +117,7 @@ class profile::bareos_master (
   }
 
   if $manage_firewall {
-    [$firewall_services].each |$svc| {
+    $firewall_services.each |$svc| {
       firewalld_service {"Allow access to service ${svc}":
         ensure  => present,
         service => $svc,
