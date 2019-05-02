@@ -5,8 +5,8 @@
 # @example
 #   include profile::remote_desktop
 class profile::remote_desktop(
-  $desktop_package_group = 'Xfce',
   $package_list,
+  $desktop_package_group = 'Xfce',
 ) {
   if $::facts['os']['family'] != 'RedHat' {
     fail("ATM only RedHat family is supported, not ${::facts['os']['family']}")
@@ -20,9 +20,7 @@ class profile::remote_desktop(
   }
   # Make sure to fix permissions, otherwise the sudo parser check will fail
   file { '/etc/sudoers.d/x2goserver':
-    mode   => '440',
+    mode   => '0440',
   }
-  package { $package_list:
-    ensure => present,
-  }
+  ensure_packages($package_list)
 }
