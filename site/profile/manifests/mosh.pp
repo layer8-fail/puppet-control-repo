@@ -15,10 +15,12 @@ class profile::mosh (
     if $fw_ports {
       $fw_ports.each |$svc| {
         firewalld_port {"Allow access to port ${svc}":
-          ensure   => present,
-          port     => $svc,
-          protocol => 'udp',
-          zone     => $fw_zone,
+          ensure => present,
+          zone   => $fw_zone,
+          port   => {
+            'port'     => $svc,
+            'protocol' => 'udp',
+          }
         }
       }
     }
