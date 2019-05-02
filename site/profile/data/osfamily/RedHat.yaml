@@ -12,3 +12,8 @@ profile::remote_desktop::package_list:
   - libreoffice-writer
   - libreoffice-langpack-es
   - libreoffice-langpack-en
+
+profile::base::package_list:
+  - vim-enhanced
+  - mosh
+  - htop
