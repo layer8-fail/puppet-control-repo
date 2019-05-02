@@ -1,6 +1,9 @@
-# A description of what this class does
+# This class sets up a complete bundle of bareos
+# director, storage and client as well as the needed database
+# engine on a given host. This should only be used in small
+# scale scenarios
 #
-# @summary A short summary of the purpose of this class
+# @summary Setup a bareos all-in-one system
 #
 # @example
 #   include profile::bareos_master
