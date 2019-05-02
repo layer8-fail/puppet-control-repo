@@ -8,6 +8,7 @@ class profile::mosh (
   Boolean $manage_firewall     = true,
   String $package              = 'mosh',
   Array $fw_ports              = ['60000','60001'],
+  String $fw_zone              = 'public',
   Optional[String] $fw_service = undef,
 ){
   if $manage_firewall {
@@ -17,6 +18,7 @@ class profile::mosh (
           ensure   => present,
           port     => $svc,
           protocol => 'udp',
+          zone     => $fw_zone,
         }
       }
     }
