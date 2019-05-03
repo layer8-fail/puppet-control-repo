@@ -7,17 +7,9 @@ hierarchy:
   - name: "Secret data: per-node, common"
     lookup_key: eyaml_lookup_key # eyaml backend
     paths:
-      - "secrets/nodes/%{trusted.certname}.eyaml"  # Include explicit file extension
-      - "common.eyaml"
+      - "nodes/%{trusted.certname}.yaml"
+      - "users/global.yaml"
+      - "global.yaml"
     options:
       pkcs7_private_key: /etc/puppetlabs/puppet/keys/layer8_private_key.pkcs7.pem
       pkcs7_public_key:  /etc/puppetlabs/puppet/keys/layer8_public_key.pkcs7.pem
-  - name: "Normal data"
-    data_hash: yaml_data # Standard yaml backend
-    paths:
-      - "nodes/%{trusted.certname}.yaml"
-      - "global.yaml"
-  - name: "Users"
-    data_hash: yaml_data
-    paths:
-      - "users/global.yaml"
