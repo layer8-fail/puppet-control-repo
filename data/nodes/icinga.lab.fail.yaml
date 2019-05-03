@@ -1,3 +1,5 @@
 ---
 # make sure only icinga2 configures the repository
 icingaweb2::manage_repo: false
+profile::icingaweb2::use_tls: true
+
