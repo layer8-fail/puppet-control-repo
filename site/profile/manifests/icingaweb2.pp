@@ -105,6 +105,7 @@ class profile::icingaweb2 (
       commandtransports => {
         icinga2 => {
           transport => 'api',
+          host      => '127.0.0.1',
           username  => $api_user,
           password  => $api_password,
         }
