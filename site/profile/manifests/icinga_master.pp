@@ -8,6 +8,7 @@
 class profile::icinga_master (
   Boolean $manage_database = true,
   Boolean $manage_ca       = true,
+  String $api_ticket_salt  = fqdn_rand_string(10),
   Enum[pgsql] $db_engine   = 'pgsql',
   String $db_host          = 'localhost',
   String $db_user          = 'icinga2',
@@ -19,6 +20,15 @@ class profile::icinga_master (
   }
   if $manage_ca {
     class { '::icinga2::pki::ca': }
+    $api_tls_config = {
+      'pki'         => 'icinga2',
+      'ticket_salt' => $api_ticket_salt,
+    }
+  }
+  else {
+    $api_tls_config = {
+      'pki' => 'puppet'
+    }
   }
   class{ '::icinga2::feature::idopgsql':
     user          => $db_user,
@@ -26,10 +36,11 @@ class profile::icinga_master (
     database      => $db_name,
     import_schema => true,
   }
+
   class { '::icinga2::feature::api':
     accept_commands => true,
     accept_config   => true,
-    pki             => 'puppet',
+    *               => $api_tls_config,
   }
   if $manage_database {
     if $db_engine == 'pgsql' {
