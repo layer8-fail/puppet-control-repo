@@ -50,6 +50,7 @@ class profile::glpi_standalone (
       ensure  => file,
       owner   => $tls_file_owner,
       group   => $tls_file_group,
+      mode    => '0600'
       content => $tls_private_key,
     }
     $server_tls_options = {
