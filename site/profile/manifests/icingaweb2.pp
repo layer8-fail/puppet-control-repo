@@ -68,6 +68,10 @@ class profile::icingaweb2 (
         value      => 'on',
         persistent => true,
       }
+      selboolean{'httpd_setrlimit':
+        value      => 'on',
+        persistent => true,
+      }
     }
   }
 
