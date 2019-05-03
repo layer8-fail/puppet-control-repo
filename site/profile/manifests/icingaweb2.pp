@@ -10,6 +10,7 @@ class profile::icingaweb2 (
   Boolean $manage_database          = true,
   Boolean $manage_webserver         = true,
   Boolean $manage_firewall          = true,
+  Boolean $manage_selinux           = true,
   String $firewall_zone             = 'public',
   Boolean $manage_repos             = true,
   Boolean $manage_php               = true,
@@ -61,6 +62,12 @@ class profile::icingaweb2 (
       settings     => $php_settings,
       fpm_user     => $php_file_owner,
       fpm_group    => $php_file_group,
+    }
+    if facts['selinux'] and $manage_selinux {
+      selboolean{'httpd_can_network_connect_db':
+        value      => 'on',
+        persistent => true,
+      }
     }
   }
 
