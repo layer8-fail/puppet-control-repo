@@ -7,7 +7,7 @@
 #   include profile::icinga_master
 class profile::icinga_master (
   Boolean $manage_database = true,
-  Boolean $manage_ca       = true,
+  Boolean $manage_ca       = false,
   String $api_ticket_salt  = fqdn_rand_string(10),
   Enum[pgsql] $db_engine   = 'pgsql',
   String $db_host          = 'localhost',
