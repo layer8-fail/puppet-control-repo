@@ -6,15 +6,18 @@
 # @example
 #   include profile::icinga_master
 class profile::icinga_master (
-  Boolean $manage_database = true,
-  Boolean $manage_ca       = false,
-  String $api_ticket_salt  = fqdn_rand_string(10),
-  Enum[pgsql] $db_engine   = 'pgsql',
-  String $db_host          = 'localhost',
-  String $db_user          = 'icinga2',
-  String $db_password      = 'icinga2',
-  String $db_name          = 'icinga2',
+  Boolean $manage_database   = true,
+  Boolean $manage_ca         = false,
+  String $api_ticket_salt    = fqdn_rand_string(10),
+  Enum[pgsql] $db_engine     = 'pgsql',
+  String $db_host            = 'localhost',
+  String $db_user            = 'icinga2',
+  String $db_password        = 'icinga2',
+  String $db_name            = 'icinga2',
+  Array $additional_packages = [],
 ){
+  ensure_packages($additional_packages)
+
   class{'icinga2':
     manage_repo => true,
   }

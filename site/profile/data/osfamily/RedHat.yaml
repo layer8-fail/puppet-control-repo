@@ -17,3 +17,6 @@ profile::base::package_list:
   - vim-enhanced
   - htop
   - tmux
+
+profile::icinga_master::additional_packages:
+  - nagios-plugins-all
