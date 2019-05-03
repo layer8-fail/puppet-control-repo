@@ -5,11 +5,14 @@
 # @example
 #   include profile::icingaweb2
 class profile::icingaweb2 (
+  Hash $php_settings,
+  String $php_version,
   Boolean $manage_database          = true,
   Boolean $manage_webserver         = true,
   Boolean $manage_firewall          = true,
-  Boolean $manage_repos             = true,
   String $firewall_zone             = 'public',
+  Boolean $manage_repos             = true,
+  Boolean $manage_php               = true,
   Boolean $manage_module_monitoring = true,
   String $ido_db_host               = 'localhost',
   String $ido_db_user               = 'icinga2',
@@ -45,6 +48,20 @@ class profile::icingaweb2 (
       fail('Only RHEL-derivatives are supported')
     }
   }
+  if $manage_php {
+    class { '::php::globals':
+      php_version => $php_version,
+      rhscl_mode  => 'rhscl',
+    }
+    ->
+    class { '::php':
+      manage_repos => false,
+      settings     => $php_settings,
+      fpm_user     => $glpi::owner,
+      fpm_group    => $glpi::group,
+    }
+  }
+
   class {'::icingaweb2':
     import_schema => true,
     db_type       => $db_engine,

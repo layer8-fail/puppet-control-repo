@@ -1,1 +1,13 @@
 ---
+profile::icingaweb2::php_version: rh-php71
+profile::icingaweb2::php_settings:
+  'PHP/max_execution_time': '600'
+  'PHP/memory_limit': '64M'
+  'PHP/post_max_size': '32M'
+  'PHP/file_uploads': 'on'
+  'PHP/register_globals': 'off'
+  'PHP/magic_quotes_sybase': 'off'
+  'PHP/session.auto_start': 'off'
+  'PHP/session.use_trans_sid': '0'
+  'PHP/upload_max_filesize': '32M'
+  'Date/date.timezone': 'UTC'
