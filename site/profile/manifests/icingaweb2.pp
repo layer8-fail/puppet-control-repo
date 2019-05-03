@@ -13,6 +13,8 @@ class profile::icingaweb2 (
   String $firewall_zone             = 'public',
   Boolean $manage_repos             = true,
   Boolean $manage_php               = true,
+  String $php_file_owner            = 'nginx',
+  String $php_file_group            = 'nginx',
   Boolean $manage_module_monitoring = true,
   String $ido_db_host               = 'localhost',
   String $ido_db_user               = 'icinga2',
@@ -57,8 +59,8 @@ class profile::icingaweb2 (
     class { '::php':
       manage_repos => false,
       settings     => $php_settings,
-      fpm_user     => $glpi::owner,
-      fpm_group    => $glpi::group,
+      fpm_user     => $php_file_owner,
+      fpm_group    => $php_file_group,
     }
   }
 
