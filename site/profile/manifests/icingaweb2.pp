@@ -15,7 +15,7 @@ class profile::icingaweb2 (
   Boolean $manage_repos             = true,
   Boolean $manage_php               = true,
   String $php_file_owner            = 'nginx',
-  String $php_file_group            = 'nginx',
+  String $php_file_group            = 'icingaweb2',
   Boolean $manage_module_monitoring = true,
   String $ido_db_host               = 'localhost',
   String $ido_db_user               = 'icinga2',
