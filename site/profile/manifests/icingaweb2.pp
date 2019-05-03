@@ -59,32 +59,32 @@ class profile::icingaweb2 (
       php_version => $php_version,
       rhscl_mode  => 'rhscl',
     }
-    ->
-    class { '::php':
-      manage_repos => false,
-      settings     => $php_settings,
-      fpm_user     => $php_file_owner,
-      fpm_group    => $php_file_group,
+  ->
+  class { '::php':
+    manage_repos => false,
+    settings     => $php_settings,
+    fpm_user     => $php_file_owner,
+    fpm_group    => $php_file_group,
+  }
+  }
+  if $facts['selinux'] and $manage_selinux {
+    selboolean{'httpd_can_network_connect_db':
+      value      => 'on',
+      persistent => true,
     }
-    if $facts['selinux'] and $manage_selinux {
-      selboolean{'httpd_can_network_connect_db':
-        value      => 'on',
-        persistent => true,
-      }
-      selboolean{'httpd_setrlimit':
-        value      => 'on',
-        persistent => true,
-      }
-      selboolean{'httpd_can_network_connect':
-        value      => 'on',
-        persistent => true,
-      }
-      ensure_packages('icingaweb2-selinux')
-      selboolean{'httpd_can_manage_icingaweb2_config':
-        value      => 'on',
-        persistent => true,
-        require    => Package['icingaweb2-selinux']
-      }
+    selboolean{'httpd_setrlimit':
+      value      => 'on',
+      persistent => true,
+    }
+    selboolean{'httpd_can_network_connect':
+      value      => 'on',
+      persistent => true,
+    }
+    ensure_packages('icingaweb2-selinux')
+    selboolean{'httpd_can_manage_icingaweb2_config':
+      value      => 'on',
+      persistent => true,
+      require    => Package['icingaweb2-selinux']
     }
   }
 
