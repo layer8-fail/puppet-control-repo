@@ -16,3 +16,4 @@ profile::remote_desktop::package_list:
 profile::base::package_list:
   - vim-enhanced
   - htop
+  - tmux
