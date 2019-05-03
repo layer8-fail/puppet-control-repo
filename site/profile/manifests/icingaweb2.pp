@@ -8,6 +8,7 @@ class profile::icingaweb2 (
   Boolean $manage_database          = true,
   Boolean $manage_webserver         = true,
   Boolean $manage_firewall          = true,
+  Boolean $manage_repos             = true,
   String $firewall_zone             = 'public',
   Boolean $manage_module_monitoring = true,
   String $ido_db_host               = 'localhost',
@@ -29,6 +30,18 @@ class profile::icingaweb2 (
   Optional[String] $tls_cert        = undef,
   Optional[String] $tls_key         = undef,
 ){
+  if $manage_repos {
+    if $facts['os']['family'] == 'RedHat' {
+      include epel
+      include scl
+      ::scl::collection{'rh-php71':
+        before => Class['::icingaweb2'],
+      }
+    }
+    else {
+      fail('Only RHEL-derivatives are supported')
+    }
+  }
   class {'::icingaweb2':
     import_schema => true,
     db_type       => $db_engine,
