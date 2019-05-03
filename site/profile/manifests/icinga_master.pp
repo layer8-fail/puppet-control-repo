@@ -8,7 +8,7 @@
 class profile::icinga_master (
   Boolean $manage_database   = true,
   Boolean $manage_ca         = false,
-  String $api_ticket_salt    = undef,
+  Optional[String] $api_ticket_salt    = undef,
   Enum[pgsql] $db_engine     = 'pgsql',
   String $db_host            = 'localhost',
   String $db_user            = 'icinga2',
@@ -24,6 +24,9 @@ class profile::icinga_master (
     manage_repo => true,
   }
   if $manage_ca {
+    if ! $api_ticket_salt {
+      fail('You need to set api_ticket_salt if you want to use the icinga2 pki/ca')
+    }
     class { '::icinga2::pki::ca': }
     $api_tls_config = {
       'pki'         => 'icinga2',
