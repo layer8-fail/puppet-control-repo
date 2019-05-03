@@ -8,13 +8,15 @@
 class profile::icinga_master (
   Boolean $manage_database   = true,
   Boolean $manage_ca         = false,
-  String $api_ticket_salt    = fqdn_rand_string(10),
+  String $api_ticket_salt    = undef,
   Enum[pgsql] $db_engine     = 'pgsql',
   String $db_host            = 'localhost',
   String $db_user            = 'icinga2',
   String $db_password        = 'icinga2',
   String $db_name            = 'icinga2',
   Array $additional_packages = [],
+  Hash $api_users            = {},
+  Hash $api_user_defaults    = {},
 ){
   ensure_packages($additional_packages)
 
@@ -45,6 +47,9 @@ class profile::icinga_master (
     accept_config   => true,
     *               => $api_tls_config,
   }
+
+  ensure_resource('::icinga2::object::apiuser', $api_users, $api_user_defaults)
+
   if $manage_database {
     if $db_engine == 'pgsql' {
       include ::postgresql::server
