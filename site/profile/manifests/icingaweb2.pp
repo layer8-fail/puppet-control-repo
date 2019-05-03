@@ -31,7 +31,7 @@ class profile::icingaweb2 (
   Optional[String] $tls_private_key = undef,
   String $tls_path                  = '/etc/nginx/certs',
   String $tls_file_owner            = 'nginx',
-  String $tls_file_group            = 'nginx'
+  String $tls_file_group            = 'nginx',
 ){
   if $manage_repos {
     if $facts['os']['family'] == 'RedHat' {
@@ -93,7 +93,7 @@ class profile::icingaweb2 (
   if $manage_webserver {
     if $webserver == 'nginx' {
       if $use_tls {
-        if not $tls_public_key or not $tls_private_key {
+        unless $tls_public_key or $tls_private_key {
            fail('You need to configure public/private tls key if you want tls.')
         }
         file { $tls_path:
