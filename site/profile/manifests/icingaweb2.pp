@@ -130,7 +130,7 @@ class profile::icingaweb2 (
           ensure  => directory,
           owner   => $tls_file_owner,
           group   => $tls_file_group,
-          require => Class['::nginx'],
+          before => Service['nginx'],
         }
         $crt = "${tls_path}/${server_name}.crt"
         $key = "${tls_path}/${server_name}.key"
