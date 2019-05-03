@@ -59,13 +59,13 @@ class profile::icingaweb2 (
       php_version => $php_version,
       rhscl_mode  => 'rhscl',
     }
-  ->
-  class { '::php':
-    manage_repos => false,
-    settings     => $php_settings,
-    fpm_user     => $php_file_owner,
-    fpm_group    => $php_file_group,
-  }
+    -> class { '::php':
+      manage_repos => false,
+      settings     => $php_settings,
+      fpm_user     => $php_file_owner,
+      fpm_group    => $php_file_group,
+      require      => Class[$webserver],
+    }
   }
   if $facts['selinux'] and $manage_selinux {
     selboolean{'httpd_can_network_connect_db':
@@ -132,7 +132,7 @@ class profile::icingaweb2 (
         user     => $db_user,
         password => postgresql_password($db_user, $db_password),
       }
-      Postgresql::Server::Db[$db_name] -> Class['::icingaweb2::module::monitoring']
+      Postgresql::Server::Db[$db_name] -> Class['::icingaweb2']
     }
   }
   if $manage_webserver {
