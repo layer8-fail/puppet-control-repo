@@ -127,9 +127,9 @@ class profile::icingaweb2 (
           fail('You need to configure public/private tls key if you want tls.')
         }
         file { $tls_path:
-          ensure  => directory,
-          owner   => $tls_file_owner,
-          group   => $tls_file_group,
+          ensure => directory,
+          owner  => $tls_file_owner,
+          group  => $tls_file_group,
           before => Service['nginx'],
         }
         $crt = "${tls_path}/${server_name}.crt"
