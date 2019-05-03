@@ -30,7 +30,6 @@ class profile::icingaweb2 (
   Optional[String] $tls_key         = undef,
 ){
   class {'::icingaweb2':
-    manage_repo   => true,
     import_schema => true,
     db_type       => $db_engine,
     db_host       => $db_host,
