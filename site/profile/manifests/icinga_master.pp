@@ -29,6 +29,7 @@ class profile::icinga_master (
   class { '::icinga2::feature::api':
     accept_commands => true,
     accept_config   => true,
+    pki             => 'puppet',
   }
   if $manage_database {
     if $db_engine == 'pgsql' {
