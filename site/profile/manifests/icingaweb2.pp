@@ -94,7 +94,7 @@ class profile::icingaweb2 (
     if $webserver == 'nginx' {
       if $use_tls {
         unless $tls_public_key or $tls_private_key {
-           fail('You need to configure public/private tls key if you want tls.')
+          fail('You need to configure public/private tls key if you want tls.')
         }
         file { $tls_path:
           ensure => directory,
@@ -107,18 +107,19 @@ class profile::icingaweb2 (
           ensure  => file,
           owner   => $tls_file_owner,
           group   => $tls_file_group,
+          mode    => '0644',
           content => $tls_public_key,
         }
         file { $key:
           ensure  => file,
           owner   => $tls_file_owner,
           group   => $tls_file_group,
-          mode    => '0600'
+          mode    => '0600',
           content => $tls_private_key,
         }
         $nginx_server_tls_conf = {
           'ssl'          => true,
-          'ssl_cert'     => $cert,
+          'ssl_cert'     => $crt,
           'ssl_key'      => $key,
           'ssl_redirect' => true,
         }
