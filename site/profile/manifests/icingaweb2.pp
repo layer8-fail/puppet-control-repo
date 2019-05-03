@@ -72,6 +72,13 @@ class profile::icingaweb2 (
         value      => 'on',
         persistent => true,
       }
+      ensure_packages('icingaweb2-selinux')
+      selboolean{'httpd_can_manage_icingaweb2_config':
+        value      => 'on',
+        persistent => true,
+        require    => Package['icingaweb2-selinux']
+      }
+
     }
   }
 
