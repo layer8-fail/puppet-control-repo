@@ -75,6 +75,10 @@ class profile::icingaweb2 (
         value      => 'on',
         persistent => true,
       }
+      selboolean{'httpd_can_network_connect':
+        value      => 'on',
+        persistent => true,
+      }
       ensure_packages('icingaweb2-selinux')
       selboolean{'httpd_can_manage_icingaweb2_config':
         value      => 'on',
