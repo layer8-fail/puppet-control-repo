@@ -39,7 +39,7 @@ class profile::icingaweb2 (
   String $tls_path                  = '/etc/nginx/certs',
   String $tls_file_owner            = 'nginx',
   String $tls_file_group            = 'nginx',
-  String $api_user                  = 'director',
+  String $api_user                  = 'icingaweb2',
   String $api_password              = $::profile::icinga_master::api_users['icingaweb2']['password']
 ){
   if $manage_repos {
