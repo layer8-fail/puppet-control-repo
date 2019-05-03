@@ -63,7 +63,7 @@ class profile::icingaweb2 (
       fpm_user     => $php_file_owner,
       fpm_group    => $php_file_group,
     }
-    if facts['selinux'] and $manage_selinux {
+    if $facts['selinux'] and $manage_selinux {
       selboolean{'httpd_can_network_connect_db':
         value      => 'on',
         persistent => true,
