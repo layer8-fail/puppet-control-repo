@@ -18,6 +18,7 @@ class profile::icingaweb2 (
   String $php_file_group            = 'icingaweb2',
   Boolean $manage_module_monitoring = true,
   String $ido_db_host               = 'localhost',
+  Enum[pgsql] $ido_db_engine        = 'pgsql',
   String $ido_db_user               = 'icinga2',
   String $ido_db_password           = 'icinga2',
   Integer[1,65535] $ido_db_port     = 5432,
@@ -95,6 +96,7 @@ class profile::icingaweb2 (
     class {'::icingaweb2::module::monitoring':
       ido_host          => $ido_db_host,
       ido_port          => $ido_db_port,
+      ido_type          => $ido_db_engine,
       ido_db_name       => $ido_db_name,
       ido_db_username   => $ido_db_password,
       ido_db_password   => $ido_db_password,
