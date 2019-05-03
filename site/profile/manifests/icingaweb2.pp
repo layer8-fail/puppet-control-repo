@@ -113,6 +113,7 @@ class profile::icingaweb2 (
           ensure  => file,
           owner   => $tls_file_owner,
           group   => $tls_file_group,
+          mode    => '0600'
           content => $tls_private_key,
         }
         $nginx_server_tls_conf = {
