@@ -78,7 +78,6 @@ class profile::icingaweb2 (
         persistent => true,
         require    => Package['icingaweb2-selinux']
       }
-
     }
   }
 
