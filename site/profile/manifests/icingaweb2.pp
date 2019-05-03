@@ -22,13 +22,16 @@ class profile::icingaweb2 (
   String $db_password               = 'icingaweb2',
   Integer[1,65535] $db_port         = 5432,
   String $db_name                   = 'icingaweb2',
-  Stdlib::Absolutepath $app_base   = '/usr/share/icingaweb2/public/',
-  String $server_name               = 'monitoring.lab.fail',
+  Stdlib::Absolutepath $app_base    = '/usr/share/icingaweb2/public/',
+  String $server_name               = 'monitor.lab.fail',
   Enum[nginx] $webserver            = 'nginx',
   String $webserver_user            = 'nginx',
   Boolean $use_tls                  = false,
-  Optional[String] $tls_cert        = undef,
-  Optional[String] $tls_key         = undef,
+  Optional[String] $tls_public_key  = undef,
+  Optional[String] $tls_private_key = undef,
+  String $tls_path                  = '/etc/nginx/certs',
+  String $tls_file_owner            = 'nginx',
+  String $tls_file_group            = 'nginx'
 ){
   if $manage_repos {
     if $facts['os']['family'] == 'RedHat' {
@@ -89,12 +92,33 @@ class profile::icingaweb2 (
   }
   if $manage_webserver {
     if $webserver == 'nginx' {
-
       if $use_tls {
+        if not $tls_public_key or not $tls_private_key {
+           fail('You need to configure public/private tls key if you want tls.')
+        }
+        file { $tls_path:
+          ensure => directory,
+          owner  => $tls_file_owner,
+          group  => $tls_file_group,
+        }
+        $crt = "${tls_path}/${server_name}.crt"
+        $key = "${tls_path}/${server_name}.key"
+        file { $crt:
+          ensure  => file,
+          owner   => $tls_file_owner,
+          group   => $tls_file_group,
+          content => $tls_public_key,
+        }
+        file { $key:
+          ensure  => file,
+          owner   => $tls_file_owner,
+          group   => $tls_file_group,
+          content => $tls_private_key,
+        }
         $nginx_server_tls_conf = {
           'ssl'          => true,
-          'ssl_cert'     => $tls_cert,
-          'ssl_key'      => $tls_key,
+          'ssl_cert'     => $cert,
+          'ssl_key'      => $key,
           'ssl_redirect' => true,
         }
         $nginx_location_tls_conf = {
