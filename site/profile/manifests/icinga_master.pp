@@ -51,7 +51,9 @@ class profile::icinga_master (
     *               => $api_tls_config,
   }
 
-  ensure_resource('::icinga2::object::apiuser', $api_users, $api_user_defaults)
+  $api_users.each |String $user, Hash $options| {
+    ensure_resource('::icinga2::object::apiuser', $user, $options + $api_user_defaults)
+  }
 
   if $manage_database {
     if $db_engine == 'pgsql' {
