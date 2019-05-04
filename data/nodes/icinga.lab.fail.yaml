@@ -1,4 +1,6 @@
 ---
+classification:
+  - 'role::icinga_master'
 # make sure only icinga2 configures the repository
 icingaweb2::manage_repo: false
 profile::icinga_master::api_users:
