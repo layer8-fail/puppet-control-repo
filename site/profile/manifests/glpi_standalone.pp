@@ -16,7 +16,8 @@ class profile::glpi_standalone (
   String $tls_private_key  = undef,
   String $tls_path         = '/etc/nginx/certs',
   String $tls_file_owner   = 'nginx',
-  String $tls_file_group   = 'nginx'
+  String $tls_file_group   = 'nginx',
+  String $mariadb_package_base ='rh-mariadb102'
 ){
   if ! $facts['os']['family'] == 'RedHat' {
     fail('Only works on RHEL/CentOS for now')
@@ -27,9 +28,17 @@ class profile::glpi_standalone (
     manage_repos => $manage_repos,
   }
   if $facts['os']['release']['major'] == 7 and $manage_repos {
-    ensure_packages('rh-mariadb102-runtime')
-    ensure_packages('rh-mariadb102-syspaths')
-    Package['rh-mariadb102-syspaths'] -> Class['::mysql::server']
+    ensure_packages("${mariadb_package_base}-runtime")
+    ensure_packages("${mariadb_package_base}-syspaths")
+    Package["${mariadb_package_base}-syspaths"] -> Class['::mysql::server']
+  }
+
+  # very ugly workaround for a db init bug in puppetlabs-mysql
+  # https://tickets.puppetlabs.com/browse/MODULES-4794
+  file { '/usr/libexec/mysqld':
+    ensure  => 'link',
+    target  => "/opt/rh/${mariadb_package_base}/root/usr/libexec/mysqld",
+    require => Class['::mysql::server'],
   }
 
   class{'::mysql::server':}
