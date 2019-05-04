@@ -20,3 +20,4 @@ profile::base::package_list:
 
 profile::icinga_master::additional_packages:
   - nagios-plugins-all
+  - git

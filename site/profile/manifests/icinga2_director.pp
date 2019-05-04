@@ -38,5 +38,6 @@ class profile::icinga2_director (
     endpoint      => $endpoint,
     api_username  => 'root',
     api_password  => 'icinga',
+    require       => Package['git'],
   }
 }
