@@ -7,9 +7,8 @@ glpi::group: nginx
 mysql::client::package_name: "rh-mariadb102-mariadb" # required for proper MySQL installation
 mysql::server::package_name: "rh-mariadb102-mariadb-server" # required for proper MySQL installation
 mysql::server::package_ensure: 'installed' # do not specify version here, unfortunately yum fails with error that package is already installed
-mysql::server::root_password: "change_me_i_am_insecure"
 mysql::server::manage_config_file: true
-mysql::server::service_name: 'mariadb' # required for puppet module
+mysql::server::service_name: 'mariadb'
 mysql::server::remove_default_accounts: true
 mysql::server::config_file: '/etc/my.cnf'
 mysql::server::includedir: '/etc/my.cnf.d'
@@ -17,7 +16,6 @@ mysql::server::override_options:
   mysqld:
     log-error: '/var/log/mysqld.log'
     pid-file: '/var/run/mariadb/mariadb.pid'
-    basedir: '/opt/rh/rh-mariadb102/root/usr/'
   mysqld_safe:
     log-error: '/var/log/mysqld.log'
 mysql::server::root_password: ENC[PKCS7,MIIBiQYJKoZIhvcNAQcDoIIBejCCAXYCAQAxggEhMIIBHQIBADAFMAACAQEwDQYJKoZIhvcNAQEBBQAEggEANikZpFM0Z6nI9H8lIDzz/PDoKjdPokmLOs7Lm/HrEq0ta+bYIvV3wPTgalQZklPt8rwQs+2gTyQpexMd23LUHiwaLWvIZR7soIu5IulCvDjeh6TkJK4gFsH6acYh9Z4tZHa9vA6yXyAMTFloBxiEcPK4WTmm0LXU9VwFhAtlDYED9JDrMq4mhlJpz4aIH3WfzM/XMG3uWVo8iR6OaqyEwPcQjpPaYsyLD0F5EteJYmTUt+JWjS5TE0TYZlozOVw5L8vcIBjCy7J9l+T4SbqSEv5Dkpj3hgmx4wjj1fA9IoV8OagslmC/em9i9beKwiGIXyDRWvpnHpegJKagr36l2DBMBgkqhkiG9w0BBwEwHQYJYIZIAWUDBAEqBBBbzC8a5eDi5OUZA6iGLOZNgCAfzybYhKRlpisQIp3zFCGGXHhz7Yp6ngtHZt5rD3cw+w==]
