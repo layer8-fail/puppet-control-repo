@@ -29,6 +29,7 @@ class profile::icinga2_director (
   }
   class {'icingaweb2::module::director':
     git_revision  => $git_revision,
+    db_type       => $db_engine,
     db_host       => $db_host,
     db_name       => $db_name,
     db_username   => $db_user,
