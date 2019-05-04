@@ -19,3 +19,4 @@ bareos_jobdefs:
     pool: 'Full'
     type: 'Backup'
 
+fusioninventory::server: 'https://glpi.lab.fail/plugins/fusioninventory'
