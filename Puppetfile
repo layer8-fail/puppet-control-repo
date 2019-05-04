@@ -50,3 +50,7 @@ mod 'glpi',
 mod 'bareos',
   :git => 'https://github.com/mattiasgiese/puppet-bareos-1.git',
   :ref => 'master'
+
+mod 'fusioninventory',
+  :git => 'https://github.com/mattiasgiese/puppet-fusioninventory.git',
+  :ref => 'master'
