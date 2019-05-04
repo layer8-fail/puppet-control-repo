@@ -6,7 +6,7 @@
 #   include profile::icinga2_director
 class profile::icinga2_director (
   Boolean $manage_database  = true,
-  String $db_host           = $db_host,
+  String $db_host           = 'localhost',
   Enum[pgsql] $db_engine    = 'pgsql',
   String $db_user           = 'icinga2_director',
   String $db_password       = 'icinga2_director',
