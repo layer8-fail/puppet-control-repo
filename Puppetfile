@@ -38,7 +38,7 @@ mod 'puppet/archive'                    , '3.2.1'
 mod 'puppet/nginx'                      , '0.16.0'
 mod 'icinga/icinga2'                    , '2.1.0'
 mod 'icinga/icingaweb2'                 , '2.2.0'
-mod 'sjors101/certificate_distribution' , '1.0.6'
+#mod 'sjors101/certificate_distribution' , '1.0.6'
 mod 'choria/choria'                     , '0.13.0'
 mod 'choria/mcollective_choria'         , '0.14.1'
 mod 'choria/mcollective'                , '0.9.1'
@@ -54,3 +54,7 @@ mod 'bareos',
 mod 'fusioninventory',
   :git => 'https://github.com/mattiasgiese/puppet-fusioninventory.git',
   :ref => 'master'
+
+mod 'certificate_distribution',
+  :git => 'https://github.com/mattiasgiese/Puppet_CertificateDistribution.git',
+  :ref => 'fedora'
