@@ -31,6 +31,7 @@ class profile::icinga2_director (
     git_revision  => $git_revision,
     db_type       => $db_engine,
     db_host       => $db_host,
+    db_port       => $db_port,
     db_name       => $db_name,
     db_username   => $db_user,
     db_password   => $db_password,
