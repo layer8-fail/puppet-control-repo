@@ -29,8 +29,10 @@ class profile::glpi_standalone (
   if $facts['os']['release']['major'] == 7 and $manage_repos {
     ensure_packages('rh-mariadb102-runtime')
     ensure_packages('rh-mariadb102-syspaths')
+    Package['rh-mariadb102-syspaths'] -> Class['::mysql::server']
   }
-  contain ::mysql::server
+
+  class{'::mysql::server':}
 
   if $tls {
     file { $tls_path:
