@@ -38,7 +38,7 @@ class profile::glpi_standalone (
   file { '/usr/libexec/mysqld':
     ensure  => 'link',
     target  => "/opt/rh/${mariadb_package_base}/root/usr/libexec/mysqld",
-    require => Class['::mysql::server'],
+    before => Class['::mysql::server'],
   }
 
   class{'::mysql::server':}
