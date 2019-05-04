@@ -13,6 +13,8 @@ class profile::base (
     purge               => false,
     config_file_replace => false,
   }
+  include ::fusioninventory
+
   # Install some baseline packages
   ensure_packages($package_list)
 }
