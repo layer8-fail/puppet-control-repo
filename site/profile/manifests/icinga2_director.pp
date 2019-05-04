@@ -13,7 +13,7 @@ class profile::icinga2_director (
   Integer[1,65535] $db_port = 5432,
   String $db_name           = 'icinga2_director',
   String $git_revision      = 'v1.6.2',
-  String $endpoint          = 'monitor.lab.fail',
+  String $endpoint          = $facts['networking']['fqdn'],
   String $api_user          = 'director',
   String $api_password      = $::profile::icinga_master::api_users['director']['password']
 ){
@@ -38,8 +38,8 @@ class profile::icinga2_director (
     import_schema => true,
     kickstart     => true,
     endpoint      => $endpoint,
-    api_username  => 'root',
-    api_password  => 'icinga',
+    api_username  => $api_user,
+    api_password  => $api_password,
     require       => Package['git'],
   }
 }
