@@ -18,7 +18,7 @@ mod 'puppetlabs/docker'                 , '3.5.0'
 mod 'puppetlabs/firewall'               , '1.15.2'
 mod 'puppetlabs/git'                    , '0.5.0'
 mod 'puppetlabs/inifile'                , '2.5.0'
-#mod 'puppetlabs/mysql'                  , '8.1.0'
+mod 'puppetlabs/mysql'                  , '8.1.0'
 mod 'puppetlabs/ntp'                    , '7.4.0'
 mod 'puppetlabs/postgresql'             , '5.12.1'
 mod 'puppetlabs/powershell'             , '2.2.0'
@@ -55,9 +55,9 @@ mod 'fusioninventory',
   :git => 'https://github.com/mattiasgiese/puppet-fusioninventory.git',
   :ref => 'master'
 
-mod 'mysql',
-  :git => 'https://github.com/mattiasgiese/puppetlabs-mysql.git',
-  :ref => 'scl_mariadb102'
+#mod 'mysql',
+#  :git => 'https://github.com/mattiasgiese/puppetlabs-mysql.git',
+#  :ref => 'scl_mariadb102'
 
 mod 'certificate_distribution',
   :git => 'https://github.com/mattiasgiese/Puppet_CertificateDistribution.git',
