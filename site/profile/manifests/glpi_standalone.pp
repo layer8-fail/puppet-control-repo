@@ -41,7 +41,7 @@ class profile::glpi_standalone (
     before => Class['::mysql::server'],
   }
 
-  class{'::mysql::server':}
+  include ::mysql::server
 
   if $tls {
     file { $tls_path:
