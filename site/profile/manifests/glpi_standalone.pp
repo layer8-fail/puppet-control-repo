@@ -27,7 +27,7 @@ class profile::glpi_standalone (
   class{'::glpi':
     manage_repos => $manage_repos,
   }
-  if $facts['os']['release']['major'] == 7 and $manage_repos {
+  if $facts['os']['release']['major'] == '7' and $manage_repos {
     ensure_packages("${mariadb_package_base}-runtime")
     ensure_packages("${mariadb_package_base}-syspaths")
     Package["${mariadb_package_base}-syspaths"] -> Class['::mysql::server']
