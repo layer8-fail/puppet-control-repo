@@ -5,4 +5,5 @@
 # @example
 #   include role::glpi
 class role::glpi {
+  contain ::profile::glpi_standalone
 }
