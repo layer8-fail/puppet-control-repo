@@ -131,6 +131,6 @@ class profile::glpi_standalone (
   }
 
   $plugins.each |String $plugin| {
-    include ::glpi::plugin::$plugin
+    include "::glpi::plugin::${plugin}"
   }
 }
