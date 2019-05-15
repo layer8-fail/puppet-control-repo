@@ -2,6 +2,9 @@
 classification:
   - 'role::glpi'
 
+profile::glpi_standalone::plugins:
+  - formcreator
+  - fusioninventory
 glpi::owner: nginx
 glpi::group: nginx
 mysql::client::package_name: "rh-mariadb102-mariadb" # required for proper MySQL installation

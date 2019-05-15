@@ -5,19 +5,20 @@
 # @example
 #   include profile::glpi_standalone
 class profile::glpi_standalone (
-  Boolean $manage_firewall = true,
-  Boolean $manage_repos    = true,
-  String $upstream_url     = 'glpi.lab.fail',
-  Integer $port            = 80,
-  String $php_fpm_url      = 'localhost:9000',
-  String $www_root         = '/var/www/glpi/current',
-  Boolean $tls             = false,
-  String $tls_public_key   = undef,
-  String $tls_private_key  = undef,
-  String $tls_path         = '/etc/nginx/certs',
-  String $tls_file_owner   = 'nginx',
-  String $tls_file_group   = 'nginx',
-  String $mariadb_package_base ='rh-mariadb102'
+  Boolean $manage_firewall     = true,
+  Boolean $manage_repos        = true,
+  String $upstream_url         = 'glpi.lab.fail',
+  Integer $port                = 80,
+  String $php_fpm_url          = 'localhost:9000',
+  String $www_root             = '/var/www/glpi/current',
+  Boolean $tls                 = false,
+  String $tls_public_key       = undef,
+  String $tls_private_key      = undef,
+  String $tls_path             = '/etc/nginx/certs',
+  String $tls_file_owner       = 'nginx',
+  String $tls_file_group       = 'nginx',
+  String $mariadb_package_base = 'rh-mariadb102',
+  Array $plugins               = [],
 ){
   if ! $facts['os']['family'] == 'RedHat' {
     fail('Only works on RHEL/CentOS for now')
@@ -127,5 +128,9 @@ class profile::glpi_standalone (
         zone    => 'public',
       }
     }
+  }
+
+  $plugins.each |String $plugin| {
+    include ::glpi::plugin::$plugin
   }
 }
